@@ -10,11 +10,13 @@ import com.systemplus.tuiassignment.BuildConfig;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -35,6 +37,13 @@ public class NetworkModule {
     @Provides
     @Singleton
     Retrofit provideCall() {
+
+        Cache cache = null;
+        try {
+            cache = new Cache(cacheFile, 10 * 1024);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         final String userAgent = System.getProperty("http.agent");
     
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -45,7 +54,7 @@ public class NetworkModule {
                                     .header("Content-Type", "application/json")
                                     .header("User-Agent", userAgent)
                                     .removeHeader("Pragma")
-                                    .build();
+                                .header("Cache-Control", String.format("max-age=%d", BuildConfig.CACHETIME)).build();
 
                         okhttp3.Response response = chain.proceed(request);
                         response.cacheResponse();
@@ -53,8 +62,11 @@ public class NetworkModule {
                         return response;
                     }
                 })
+                .cache(cache)
+                .readTimeout(BuildConfig.READTIMEOUT, TimeUnit.SECONDS)
+                .connectTimeout(BuildConfig.CONNECTIONTIMEOUT,TimeUnit.SECONDS)
                 .build();
-    
+
 
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.BASEURL)

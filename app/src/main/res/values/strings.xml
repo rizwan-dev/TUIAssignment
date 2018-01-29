@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TUIAssignment</string>
+    <string name="random_joke">Random Joke</string>
+    <string name="text_input">Text Input</string>
+    <string name="never_ending_list">Never Ending List</string>
 </resources>
