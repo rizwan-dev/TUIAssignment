@@ -1,14 +1,7 @@
 package com.systemplus.tuiassignment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-
 
 import com.systemplus.tuiassignment.deps.DaggerDeps;
 import com.systemplus.tuiassignment.deps.Deps;
@@ -42,12 +35,8 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    public Deps getDeps() {
+    protected Deps getDeps() {
         return deps;
-    }
-
-    public void setDeps(Deps deps) {
-        this.deps = deps;
     }
 
 }

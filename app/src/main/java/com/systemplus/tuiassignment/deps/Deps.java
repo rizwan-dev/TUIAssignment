@@ -2,6 +2,8 @@ package com.systemplus.tuiassignment.deps;
 
 import com.systemplus.tuiassignment.networking.NetworkModule;
 import com.systemplus.tuiassignment.ui.home.HomeActivity;
+import com.systemplus.tuiassignment.ui.neverendinglist.NeverEndingListActivity;
+import com.systemplus.tuiassignment.ui.textinput.TextInputActivity;
 
 import javax.inject.Singleton;
 
@@ -21,6 +23,10 @@ public interface Deps {
      * @param activity
      */
     void inject(HomeActivity activity);
+
+    void inject(TextInputActivity activity);
+
+    void inject(NeverEndingListActivity activity);
     
 
 }

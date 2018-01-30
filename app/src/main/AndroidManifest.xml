@@ -10,15 +10,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.home.HomeActivity">
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:label="@string/home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.textinput.TextInputActivity" />
-        <activity android:name=".ui.neverendinglist.NeverEndingListActivity"></activity>
+        <activity
+            android:name=".ui.textinput.TextInputActivity"
+            android:label="@string/text_input" />
+        <activity
+            android:name=".ui.neverendinglist.NeverEndingListActivity"
+            android:label="@string/never_ending_list" />
     </application>
 
 </manifest>

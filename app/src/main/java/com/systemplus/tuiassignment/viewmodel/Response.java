@@ -3,9 +3,11 @@ package com.systemplus.tuiassignment.viewmodel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import static com.systemplus.tuiassignment.viewmodel.Status.ERROR;
-import static com.systemplus.tuiassignment.viewmodel.Status.LOADING;
-import static com.systemplus.tuiassignment.viewmodel.Status.SUCCESS;
+import com.systemplus.tuiassignment.repository.Status;
+
+import static com.systemplus.tuiassignment.repository.Status.ERROR;
+import static com.systemplus.tuiassignment.repository.Status.LOADING;
+import static com.systemplus.tuiassignment.repository.Status.SUCCESS;
 
 /**
  * Response holder provided to the UI

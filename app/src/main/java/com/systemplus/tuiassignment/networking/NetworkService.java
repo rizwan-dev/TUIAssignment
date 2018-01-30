@@ -1,15 +1,12 @@
 package com.systemplus.tuiassignment.networking;
 
-import android.arch.lifecycle.LiveData;
-
-import com.systemplus.tuiassignment.model.BaseResponse;
+import com.systemplus.tuiassignment.model.JokeListResponse;
 import com.systemplus.tuiassignment.model.RandomJokeResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Path;
-import retrofit2.http.Url;
+import retrofit2.http.Query;
 
 /**
  * @author Rizwanul Haque
@@ -20,8 +17,12 @@ public interface NetworkService {
     @GET("jokes/random")
     Observable<RandomJokeResponse> requestRandomJoke();
 
-    @GET
-    Observable<BaseResponse> requestRandomJokeTest(@Url String s);
+    //Get joke with custom character
+    @GET("jokes/random")
+    Observable<RandomJokeResponse> requestJokeWithName(@Query("firstName") String firstName, @Query("lastName") String lastName);
 
+    //Get joke list in pages
+    @GET("jokes/random/{pageSize}")
+    Observable<JokeListResponse> requestJokeListWithPaging(@Path("pageSize") String pageSize);
 
 }

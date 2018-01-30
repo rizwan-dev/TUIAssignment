@@ -1,8 +1,6 @@
 package com.systemplus.tuiassignment.networking;
 
-import android.arch.lifecycle.LiveData;
-
-import com.systemplus.tuiassignment.model.BaseResponse;
+import com.systemplus.tuiassignment.model.JokeListResponse;
 import com.systemplus.tuiassignment.model.RandomJokeResponse;
 
 import io.reactivex.Observable;
@@ -25,7 +23,13 @@ public class NetworkServiceImpl implements NetworkService{
     }
 
     @Override
-    public Observable<BaseResponse> requestRandomJokeTest(String s) {
-        return mNetworkService.requestRandomJokeTest(s);
+    public Observable<RandomJokeResponse> requestJokeWithName(String firstName, String lastName) {
+        return mNetworkService.requestJokeWithName(firstName, lastName);
     }
+
+    @Override
+    public Observable<JokeListResponse> requestJokeListWithPaging(String pageSize) {
+        return mNetworkService.requestJokeListWithPaging(pageSize);
+    }
+
 }

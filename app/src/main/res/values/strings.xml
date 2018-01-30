@@ -3,4 +3,11 @@
     <string name="random_joke">Random Joke</string>
     <string name="text_input">Text Input</string>
     <string name="never_ending_list">Never Ending List</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="no_joke_found">No joke found</string>
+    <string name="enter_your_first_and_last_name">Enter your first and last name</string>
+    <string name="first_last_name_missing">First and last name is missing</string>
+    <string name="last_name_missing">last name is missing</string>
+    <string name="retry">Retry</string>
+    <string name="home">Home</string>
 </resources>
