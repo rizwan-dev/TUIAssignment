@@ -11,25 +11,40 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <CheckBox
+            android:id="@+id/cbExcludeExplicit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_explict"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/btnRandomJoke"
             android:layout_width="@dimen/button_width"
             android:layout_height="wrap_content"
-            android:text="@string/random_joke" />
+            android:layout_marginTop="@dimen/margin_top_big"
+            android:background="@drawable/button_selector"
+            android:text="@string/random_joke"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnTextInput"
             android:layout_width="@dimen/button_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_medium"
-            android:text="@string/text_input" />
+            android:background="@drawable/button_selector"
+            android:text="@string/text_input"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnNeverEndingList"
             android:layout_width="@dimen/button_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_medium"
-            android:text="@string/never_ending_list" />
+            android:background="@drawable/button_selector"
+            android:text="@string/never_ending_list"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

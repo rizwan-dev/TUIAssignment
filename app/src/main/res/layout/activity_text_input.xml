@@ -22,6 +22,7 @@
             <EditText
                 android:textSize="18sp"
                 android:id="@+id/edtUserName"
+                android:imeOptions="actionDone"
                 android:inputType="textPersonName|textCapWords"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,11 +31,13 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            android:textColor="@color/white"
+            android:background="@drawable/button_selector"
             android:id="@+id/btnSubmit"
             android:layout_width="@dimen/button_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_big"
-            android:text="Submit" />
+            android:text="@string/submit" />
 
     </LinearLayout>
 

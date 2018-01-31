@@ -1,9 +1,7 @@
-package com.systemplus.tuiassignment.viewmodel;
+package com.systemplus.tuiassignment.repository;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-import com.systemplus.tuiassignment.repository.Status;
 
 import static com.systemplus.tuiassignment.repository.Status.ERROR;
 import static com.systemplus.tuiassignment.repository.Status.LOADING;

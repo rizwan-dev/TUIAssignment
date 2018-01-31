@@ -2,22 +2,24 @@ package com.systemplus.tuiassignment.ui.textinput;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.systemplus.tuiassignment.BaseActivity;
 import com.systemplus.tuiassignment.R;
 import com.systemplus.tuiassignment.networking.NetworkService;
 import com.systemplus.tuiassignment.util.JokeDisplayDialogFragment;
-import com.systemplus.tuiassignment.viewmodel.Response;
+import com.systemplus.tuiassignment.repository.Response;
 
 import javax.inject.Inject;
 
@@ -54,8 +56,9 @@ public class TextInputActivity extends BaseActivity {
         ButterKnife.bind(this);
         getDeps().inject(this);
 
-        mViewModel = ViewModelProviders.of(this).get(TextInputViewModel.class);
-        mViewModel.response().observe(this, response -> processResponse(response));
+        mViewModel = ViewModelProviders.of(this, new TextInputViewModelFactory(mNetworkService)).get(TextInputViewModel.class);
+
+        mViewModel.response().observe(this, this::processResponse);
 
         edtUserName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -73,6 +76,16 @@ public class TextInputActivity extends BaseActivity {
 
             }
         });
+
+        edtUserName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    requestJokeWithCharacter();
+                }
+                return false;
+            }
+        });
     }
 
     private void processResponse(Response response) {
@@ -82,13 +95,15 @@ public class TextInputActivity extends BaseActivity {
                 break;
 
             case SUCCESS:
-                progress.setVisibility(View.GONE);
-                showDialog(response.data);
+                if (!mViewModel.isJokeAlreadyDisplayed) {
+                    progress.setVisibility(View.GONE);
+                    showDialog(response.data);
+                }
                 break;
 
             case ERROR:
                 progress.setVisibility(View.GONE);
-                Toast.makeText(this, response.error.getMessage(), Toast.LENGTH_SHORT).show();
+                showToast(response.error != null ? response.error.getMessage() : getString(R.string.default_error_message));
                 break;
         }
     }
@@ -96,6 +111,19 @@ public class TextInputActivity extends BaseActivity {
 
     @OnClick(R.id.btnSubmit)
     public void onSubmitClick(View view) {
+        requestJokeWithCharacter();
+    }
+
+    public void showDialog(String message) {
+        mViewModel.isJokeAlreadyDisplayed = true;
+        JokeDisplayDialogFragment jokeDialogFragment = JokeDisplayDialogFragment.newInstance(message);
+        Bundle bundle = new Bundle();
+        bundle.putString(MESSAGE_BODY, message);
+        jokeDialogFragment.setArguments(bundle);
+        jokeDialogFragment.show(fm, DIALOG_TAG);
+    }
+
+    private void requestJokeWithCharacter() {
         String userFullName = edtUserName.getText().toString().trim();
         if (TextUtils.isEmpty(userFullName)) {
             inputLayoutUserName.setError(getString(R.string.first_last_name_missing));
@@ -112,20 +140,7 @@ public class TextInputActivity extends BaseActivity {
         String firstName = userNameParts[0];
         String lastName = userNameParts[1].trim();
 
-        mViewModel.requestRandomJoke(mNetworkService, firstName, lastName);
-
-    }
-
-    public void showDialog(String message) {
-        Fragment prevJokeDialogFragment = fm.findFragmentByTag(DIALOG_TAG);
-        if (prevJokeDialogFragment == null) {
-            JokeDisplayDialogFragment jokeDialogFragment = JokeDisplayDialogFragment.newInstance(message);
-            Bundle bundle = new Bundle();
-            bundle.putString(MESSAGE_BODY, message);
-            jokeDialogFragment.setArguments(bundle);
-            // Show DialogFragment
-            jokeDialogFragment.show(fm, DIALOG_TAG);
-        }
+        mViewModel.requestRandomJoke(firstName, lastName);
     }
 
 }

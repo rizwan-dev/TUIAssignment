@@ -10,6 +10,7 @@ import com.systemplus.tuiassignment.networking.NetworkError;
 import com.systemplus.tuiassignment.networking.NetworkService;
 import com.systemplus.tuiassignment.repository.NetworkState;
 import com.systemplus.tuiassignment.repository.Status;
+import com.systemplus.tuiassignment.util.TUIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ import timber.log.Timber;
 public class ItemKeyedJokeListDataSource extends ItemKeyedDataSource<Long, JokeData> {
     public static final String TAG = "ItemKeyedJokeListDataSource";
     private static final String SUCCESS = "success";
+    private static final int DATA_PAGE_SIZE = 20;
     private NetworkService mNetworkService;
     LoadInitialParams<Long> initialParams;
     LoadParams<Long> afterParams;
@@ -56,7 +58,7 @@ public class ItemKeyedJokeListDataSource extends ItemKeyedDataSource<Long, JokeD
 
         mInitialLoading.postValue(NetworkState.LOADING);
         mNetworkState.postValue(NetworkState.LOADING);
-        mNetworkService.requestJokeListWithPaging("20").subscribeOn(Schedulers.io())
+        mNetworkService.requestJokeListWithPaging(DATA_PAGE_SIZE, TUIUtil.getCategoryToExclude()).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         jokeListResponse -> {
@@ -86,7 +88,7 @@ public class ItemKeyedJokeListDataSource extends ItemKeyedDataSource<Long, JokeD
         afterParams = params;
 
 
-        mNetworkService.requestJokeListWithPaging("20").subscribeOn(Schedulers.io())
+        mNetworkService.requestJokeListWithPaging(DATA_PAGE_SIZE, TUIUtil.getCategoryToExclude()).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(__ -> {
                     mNetworkState.postValue(NetworkState.LOADING);

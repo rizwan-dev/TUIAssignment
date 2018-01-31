@@ -4,7 +4,8 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.systemplus.tuiassignment.networking.NetworkService;
-import com.systemplus.tuiassignment.viewmodel.Response;
+import com.systemplus.tuiassignment.repository.Response;
+import com.systemplus.tuiassignment.util.TUIUtil;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -16,14 +17,19 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class TextInputViewModel extends ViewModel {
-    private CompositeDisposable mCompositeDisposable;
-    private NetworkService mService;
 
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final MutableLiveData<Response> response = new MutableLiveData<>();
+    boolean isJokeAlreadyDisplayed;
+    private NetworkService mNetworkService;
 
-    public void requestRandomJoke(NetworkService mService, String firstName, String lastName) {
-        Disposable disposable = mService.requestJokeWithName(firstName, lastName).subscribeOn(Schedulers.io())
+    public TextInputViewModel(NetworkService networkService) {
+        this.mNetworkService = networkService;
+    }
+
+    public void requestRandomJoke(String firstName, String lastName) {
+        isJokeAlreadyDisplayed = false;
+        Disposable disposable = mNetworkService.requestJokeWithName(firstName, lastName, TUIUtil.getCategoryToExclude()).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(__ -> response.setValue(Response.loading()))
                 .subscribe(

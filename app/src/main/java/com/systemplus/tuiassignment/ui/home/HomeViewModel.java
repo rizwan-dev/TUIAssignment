@@ -4,7 +4,8 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.systemplus.tuiassignment.networking.NetworkService;
-import com.systemplus.tuiassignment.viewmodel.Response;
+import com.systemplus.tuiassignment.repository.Response;
+import com.systemplus.tuiassignment.util.TUIUtil;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -16,34 +17,34 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class HomeViewModel extends ViewModel {
-    private CompositeDisposable mCompositeDisposable;
     private NetworkService mService;
-
-    private final CompositeDisposable disposables = new CompositeDisposable();
-    private final MutableLiveData<Response> response = new MutableLiveData<>();
+    private final CompositeDisposable mDisposables = new CompositeDisposable();
+    private final MutableLiveData<Response> mResponse = new MutableLiveData<>();
+    boolean isJokeAlreadyDisplayed;
 
     HomeViewModel(NetworkService networkService) {
         this.mService = networkService;
     }
 
     void requestRandomJoke() {
-        Disposable disposable = mService.requestRandomJoke().subscribeOn(Schedulers.io())
+        isJokeAlreadyDisplayed = false;
+        Disposable disposable = mService.requestRandomJoke(TUIUtil.getCategoryToExclude()).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(__ -> response.setValue(Response.loading()))
+                .doOnSubscribe(__ -> mResponse.setValue(Response.loading()))
                 .subscribe(
-                        jokeResponse -> response.setValue(Response.success(jokeResponse.getJokeData().getJoke())),
-                        throwable -> response.setValue(Response.error(throwable))
+                        jokeResponse -> mResponse.setValue(Response.success(jokeResponse.getJokeData().getJoke())),
+                        throwable -> mResponse.setValue(Response.error(throwable))
                 );
-        disposables.add(disposable);
+        mDisposables.add(disposable);
     }
 
     MutableLiveData<Response> response() {
-        return response;
+        return mResponse;
     }
 
     @Override
     protected void onCleared() {
-        disposables.clear();
+        mDisposables.clear();
     }
 
 }

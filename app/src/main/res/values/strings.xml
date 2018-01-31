@@ -7,7 +7,10 @@
     <string name="no_joke_found">No joke found</string>
     <string name="enter_your_first_and_last_name">Enter your first and last name</string>
     <string name="first_last_name_missing">First and last name is missing</string>
-    <string name="last_name_missing">last name is missing</string>
+    <string name="last_name_missing">Last name is missing</string>
     <string name="retry">Retry</string>
     <string name="home">Home</string>
+    <string name="default_error_message">Something went wrong, please try again</string>
+    <string name="no_explict">No Explict</string>
+    <string name="submit">Submit</string>
 </resources>

@@ -2,6 +2,7 @@ package com.systemplus.tuiassignment;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.systemplus.tuiassignment.deps.DaggerDeps;
 import com.systemplus.tuiassignment.deps.Deps;
@@ -27,16 +28,17 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        File cacheFile = new File(getCacheDir(), "responses");
-
+        File cacheFile = new File(getCacheDir() , "responses");
         // Building dependency module
         deps = DaggerDeps.builder().networkModule(new NetworkModule(cacheFile)).build();
-        Timber.plant(new Timber.DebugTree());
-
     }
 
     protected Deps getDeps() {
         return deps;
+    }
+
+    protected void showToast(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 }
