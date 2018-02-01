@@ -8,6 +8,10 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * This class is used for storing Joke details
+ * @author Rizwanul haque
+ */
 public class JokeData {
 
     public static DiffCallback<JokeData> DIFF_CALLBACK = new DiffCallback<JokeData>() {
