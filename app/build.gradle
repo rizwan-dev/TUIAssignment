@@ -74,11 +74,24 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
+    // Remember
+    implementation "com.tumblr:remember:$remember_version"
+
     // Testing
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "com.android.support.test:runner:$test_runner_version"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+    // include espresso-intents
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:$espresso_version"
 
-    // Remember
-    implementation "com.tumblr:remember:$remember_version"
+    testImplementation 'android.arch.core:core-testing:1.1.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+
+    testCompile 'org.mockito:mockito-core:2.8.0'
+    testCompile 'org.powermock:powermock-api-mockito2:1.7.0RC2'
+    testCompile 'org.powermock:powermock-module-junit4:1.7.0'
+    testCompile 'org.powermock:powermock-core:1.7.0'
+    testCompile 'org.powermock:powermock-module-junit4-rule:1.7.0'
+
+//    testCompile 'org.powermock:powermock-api-mockito2:1.7.0RC2'
 }

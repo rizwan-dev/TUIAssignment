@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 import com.systemplus.tuiassignment.networking.NetworkService;
-import com.systemplus.tuiassignment.ui.neverendinglist.JokeListViewModel;
 
 public class HomeViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private NetworkService mNetworkService;

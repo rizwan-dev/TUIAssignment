@@ -17,22 +17,21 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
+ * Responsible for managing data for NeverEndingListActivity
  * @author Rizwanul Haque
  */
 
-public class JokeListViewModel extends ViewModel {
+public class NeverEndingListViewModel extends ViewModel {
 
     LiveData<PagedList<JokeData>> mJokeDataList;
     LiveData<NetworkState> mNetworkState;
     LiveData<NetworkState> mInitialLoading;
     private Executor mExecutor;
-    private LiveData<ItemKeyedJokeListDataSource> mJokeListDataSource;
 
-    public JokeListViewModel(NetworkService networkService){
+    public NeverEndingListViewModel(NetworkService networkService){
         mExecutor = Executors.newFixedThreadPool(5);
         JokeListDataSourceFactory jokeListDataSourceFactory = new JokeListDataSourceFactory(mExecutor, networkService);
 
-        mJokeListDataSource = jokeListDataSourceFactory.getMutableLiveData();
 
         mNetworkState = Transformations.switchMap(jokeListDataSourceFactory.getMutableLiveData(), (Function<ItemKeyedJokeListDataSource, LiveData<NetworkState>>) ItemKeyedJokeListDataSource::getNetworkState);
 

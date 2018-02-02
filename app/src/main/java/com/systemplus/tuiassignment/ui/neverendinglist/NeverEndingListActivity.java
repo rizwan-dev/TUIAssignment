@@ -40,7 +40,7 @@ public class NeverEndingListActivity extends BaseActivity implements ListItemCli
         jokeList.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
 
-        JokeListViewModel mViewModel = ViewModelProviders.of(this, new JokeListViewModelFactory(mNetworkService)).get(JokeListViewModel.class);
+        NeverEndingListViewModel mViewModel = ViewModelProviders.of(this, new NeverEndingListViewModelFactory(mNetworkService)).get(NeverEndingListViewModel.class);
 
         final JokeListAdapter jokeListAdapter = new JokeListAdapter(this);
 

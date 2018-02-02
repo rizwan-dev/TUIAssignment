@@ -6,11 +6,15 @@ import android.support.annotation.NonNull;
 
 import com.systemplus.tuiassignment.networking.NetworkService;
 
-public class JokeListViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+public class NeverEndingListViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private NetworkService mNetworkService;
 
 
-    JokeListViewModelFactory(NetworkService networkService) {
+    /**
+     * Creates NeverEndingListViewModelFactory which will be used for creating NeverEndingListViewModel
+     * @param networkService
+     */
+    NeverEndingListViewModelFactory(NetworkService networkService) {
         this.mNetworkService = networkService;
     }
 
@@ -18,6 +22,6 @@ public class JokeListViewModelFactory extends ViewModelProvider.NewInstanceFacto
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new JokeListViewModel(mNetworkService);
+        return (T) new NeverEndingListViewModel(mNetworkService);
     }
 }

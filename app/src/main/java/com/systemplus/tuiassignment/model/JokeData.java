@@ -33,6 +33,14 @@ public class JokeData {
     @Expose
     private String joke;
 
+    public JokeData(long id, String joke) {
+        this.id = id;
+        this.joke = joke;
+    }
+
+    public JokeData() {
+    }
+
     public long getId() {
         return id;
     }

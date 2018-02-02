@@ -7,6 +7,11 @@ import com.tumblr.remember.Remember;
  */
 
 public class TUIUtil {
+
+    /**
+     * Returns category list to exclude
+     * @return
+     */
     public static String getCategoryToExclude() {
         boolean isExludeChecked = Remember.getBoolean(SPConstants.IS_EXCLUDE_EXPLICIT, false);
         if (isExludeChecked) {

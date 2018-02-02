@@ -9,6 +9,7 @@
     tools:context="com.systemplus.tuiassignment.ui.home.HomeActivity">
 
     <LinearLayout
+        android:id="@+id/linLayTextInput"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

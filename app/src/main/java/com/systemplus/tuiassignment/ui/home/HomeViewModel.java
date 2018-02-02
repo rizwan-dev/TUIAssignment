@@ -13,6 +13,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ * Responsible for managing data for HomeActivity
  * @author Rizwanul Haque
  */
 
@@ -26,6 +27,9 @@ public class HomeViewModel extends ViewModel {
         this.mService = networkService;
     }
 
+    /**
+     * Performs server call for fetching random joke
+     */
     void requestRandomJoke() {
         isJokeAlreadyDisplayed = false;
         Disposable disposable = mService.requestRandomJoke(TUIUtil.getCategoryToExclude()).subscribeOn(Schedulers.io())

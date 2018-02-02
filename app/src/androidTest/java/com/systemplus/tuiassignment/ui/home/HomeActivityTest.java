@@ -17,15 +17,17 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.systemplus.tuiassignment.util.TestUtils.matchToolbarTitle;
+import static com.systemplus.tuiassignment.util.EspressoTestUtil.matchToolbarTitle;
 import static org.hamcrest.core.AllOf.allOf;
 
 /**
+ * Performs UI test for HomeActivity
  * @author Rizwanul Haque
  */
 
 @RunWith(AndroidJUnit4.class)
 public class HomeActivityTest {
+
 
     @Rule
     public ActivityTestRule<HomeActivity> mActivityRule = new ActivityTestRule<>(HomeActivity.class);
@@ -54,11 +56,22 @@ public class HomeActivityTest {
     }
 
     @Test
-    public void clickRandomJokesButton_showsProgressbar() {
-
+    public void clickRandomJokesButton_showsDialogSuccess() {
+        // TODO : Need to mock reponse for success case
         onView(withId(R.id.btnRandomJoke)).perform(click());
-        // Check the dialog title text is displayed
         onView(withText(R.string.app_name)).check(matches(isDisplayed()));
+
+    }
+
+    @Test
+    public void clickRandomJokesButton_showsDialogError() {
+        // TODO : Need to verify error case with mock response
+
+    }
+
+    @Test
+    public void clickRandomJokesButton_showsDialogNetworkError() {
+        // TODO : Need to verify network error with mocking
 
     }
 
